@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  background: #0b1020;
+  color: #e9eef5;
+  font-family: system-ui, Segoe UI, Roboto, Arial;
+}
+header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #222;
+}
+h1 { margin: 0; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border-bottom: 1px solid #222;
+  padding: 8px;
+  text-align: left;
+}
+a { color: #9ad0ff; }
