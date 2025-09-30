@@ -18,6 +18,9 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS iso_to_csf (
     iso_control TEXT NOT NULL,     -- e.g., 'A.9.2.3'
     nist_csf    TEXT NOT NULL,     -- e.g., 'PR.AC-1'
+    iso_title TEXT NOT NULL,
+    nist_desc TEXT NOT NULL,
+
     PRIMARY KEY (iso_control, nist_csf)
   );
 
