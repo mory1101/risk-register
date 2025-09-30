@@ -1,12 +1,14 @@
+// seedMapping.js (ESM)
 import db from './db.js';
 
-// Upsert with descriptive fields
+
+
 const upsert = db.prepare(`
   INSERT INTO iso_to_csf (iso_control, nist_csf, iso_title, nist_desc)
   VALUES (@iso_control, @nist_csf, @iso_title, @nist_desc)
   ON CONFLICT(iso_control, nist_csf) DO UPDATE SET
-    iso_title=excluded.iso_title,
-    nist_desc=excluded.nist_desc
+    iso_title = excluded.iso_title,
+    nist_desc = excluded.nist_desc
 `);
 
 const pairs = [
@@ -36,8 +38,10 @@ const pairs = [
   }
 ];
 
-db.transaction(() => {
-  pairs.forEach(p => upsert.run(p));
-})();
+const insertMany = db.transaction((rows) => {
+  for (const p of rows) upsert.run(p); // uses named params like @iso_control
+});
+
+insertMany(pairs);
 
 console.log('Seeded enriched ISO→NIST mappings:', pairs.length);

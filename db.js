@@ -54,17 +54,27 @@ db.exec(`
     UPDATE risks SET updated_at = datetime('now') WHERE id = OLD.id;
   END;
 
-  -- Convenience VIEW: risks + aggregated NIST CSF codes
+   -- Convenience VIEW: risks + aggregated NIST CSF codes with descriptions
   DROP VIEW IF EXISTS risk_with_nist;
   CREATE VIEW risk_with_nist AS
   SELECT r.*,
          (
-           SELECT group_concat(m.nist_csf)
+           SELECT group_concat(m.nist_csf || ' — ' || m.nist_desc, '; ')
            FROM iso_to_csf m
            WHERE m.iso_control = r.iso_control
-         ) AS nist_csfs
+         ) AS nist_mappings,
+         (
+           SELECT iso_title
+           FROM iso_to_csf m
+           WHERE m.iso_control = r.iso_control
+           LIMIT 1
+         ) AS iso_title
   FROM risks r;
+
 `);
+
+
+export default db
 
 
 
