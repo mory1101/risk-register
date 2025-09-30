@@ -92,6 +92,43 @@ app.post('/api/risks', (req, res) => {
   res.status(201).json(row);
 });
 
+// GET ISO → NIST mapping for dropdowns / drill-downs
+app.get('/api/mappings', (req, res) => {
+  try {
+    // Distinct ISO controls + a stable title
+    const isos = db.prepare(`
+      SELECT 
+        iso_control,
+        MIN(COALESCE(iso_title, '')) AS iso_title
+      FROM iso_to_csf
+      GROUP BY iso_control
+      ORDER BY iso_control
+    `).all();
+
+    // NIST subcategories for a given ISO control
+    const nistStmt = db.prepare(`
+      SELECT nist_csf, COALESCE(nist_desc, '') AS nist_desc
+      FROM iso_to_csf
+      WHERE iso_control = ?
+      ORDER BY nist_csf
+    `);
+
+    const result = isos.map(({ iso_control, iso_title }) => ({
+      iso_control,
+      iso_title,
+      nist: nistStmt.all(iso_control)
+    }));
+
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to load mappings' });
+  }
+});
+
+
+
+
 
 
 const PORT = process.env.PORT || 3000;
