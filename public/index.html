@@ -7,6 +7,14 @@
 </head>
 <body>
   <header><h1>Risk Register</h1></header>
+  <div style="margin:10px 0; font-size:0.9em; opacity:0.85;">
+  <strong>Risk bands:</strong>
+  <span class="badge badge-low">Low 1–5</span>
+  <span class="badge badge-mod">Moderate 6–10</span>
+  <span class="badge badge-high">High 11–15</span>
+  <span class="badge badge-crit">Critical 16–25</span>
+</div>
+
   <main>
     <section id="form">
       <h2>Add Risk</h2>
@@ -22,12 +30,17 @@
       <input name="vulnerability" required />
     </label>
 
-    <label>Likelihood (1–5)
-      <input type="number" name="likelihood" min="1" max="5" required />
-    </label>
-    <label>Impact (1–5)
-      <input type="number" name="impact" min="1" max="5" required />
-    </label>
+   <label>Likelihood (1–5)
+  <select name="likelihood" id="likelihoodSelect" required></select>
+</label>
+
+<label>Impact (1–5)
+  <select name="impact" id="impactSelect" required></select>
+</label>
+
+<!-- Optional: a small help line under the selects -->
+<div id="scoreHelp" style="grid-column: 1 / -1; font-size: 0.9em; opacity: 0.85;"></div>
+
     <label>Treatment
       <select name="treatment">
         <option>mitigate</option>
@@ -47,9 +60,13 @@
         <option>closed</option>
       </select>
     </label>
-    <label>ISO Control (optional)
-      <input name="iso_control" placeholder="e.g., A.9.2.3" />
-    </label>
+    <label>ISO Control
+  <select name="iso_control" id="isoControl">
+    <option value="">— Select ISO control —</option>
+  </select>
+</label>
+<div id="isoHelp" style="font-size:0.9em; opacity:0.8; margin-top:4px;"></div>
+
 
     <label>Due Date
       <input type="date" name="due_date" />

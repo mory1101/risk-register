@@ -19,3 +19,13 @@ th, td {
   text-align: left;
 }
 a { color: #9ad0ff; }
+
+.badge {
+  display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px;
+  border:1px solid #333; margin-left:6px;
+}
+.badge-low { background:#0e4025; }
+.badge-mod { background:#403a0e; }
+.badge-high { background:#40220e; }
+.badge-crit { background:#400e0e; }
+
