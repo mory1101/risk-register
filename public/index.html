@@ -9,12 +9,64 @@
   <header><h1>Risk Register</h1></header>
   <main>
     <section id="form">
-      <p>Form placeholder — we’ll wire this to POST /api/risks later.</p>
+      <h2>Add Risk</h2>
+<form id="riskForm">
+  <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px;max-width:1100px;">
+    <label>Asset
+      <input name="asset" required />
+    </label>
+    <label>Threat
+      <input name="threat" required />
+    </label>
+    <label>Vulnerability
+      <input name="vulnerability" required />
+    </label>
+
+    <label>Likelihood (1–5)
+      <input type="number" name="likelihood" min="1" max="5" required />
+    </label>
+    <label>Impact (1–5)
+      <input type="number" name="impact" min="1" max="5" required />
+    </label>
+    <label>Treatment
+      <select name="treatment">
+        <option>mitigate</option>
+        <option>accept</option>
+        <option>transfer</option>
+        <option>avoid</option>
+      </select>
+    </label>
+
+    <label>Owner
+      <input name="owner" />
+    </label>
+    <label>Status
+      <select name="status">
+        <option>open</option>
+        <option>in-progress</option>
+        <option>closed</option>
+      </select>
+    </label>
+    <label>ISO Control (optional)
+      <input name="iso_control" placeholder="e.g., A.9.2.3" />
+    </label>
+
+    <label>Due Date
+      <input type="date" name="due_date" />
+    </label>
+  </div>
+
+  <div style="margin-top:12px;">
+    <button type="submit">Create Risk</button>
+    <span id="formMsg" style="margin-left:12px;"></span>
+  </div>
+</form>
+
     </section>
     <section id="register">
       <h2>Register</h2>
       <table id="riskTable">
-        <<table id="riskTable">
+        <table id="riskTable">
   <thead>
     <tr>
       <th>ID</th>
