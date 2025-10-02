@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import db from './db.js';
+import { Parser } from 'json2csv';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -125,6 +126,59 @@ app.get('/api/mappings', (req, res) => {
     res.status(500).json({ error: 'Failed to load mappings' });
   }
 });
+
+app.get('/export/csv', (req, res) => {
+  // Pull from the enriched view so you include ISO title + NIST mappings
+  const risks = db.prepare(`
+    SELECT
+      id,
+      asset,
+      threat,
+      vulnerability,
+      likelihood,
+      impact,
+      risk_rating,
+      treatment,           -- note: not "mitigation"
+      owner,
+      status,
+      iso_control,
+      iso_title,
+      nist_mappings,
+      due_date,
+      created_at,
+      updated_at
+    FROM risk_with_nist
+    ORDER BY risk_rating DESC, id DESC
+  `).all();
+
+  // Choose the columns you want in the CSV (adjust order to taste)
+  const fields = [
+    'id',
+    'asset',
+    'threat',
+    'vulnerability',
+    'likelihood',
+    'impact',
+    'risk_rating',
+    'treatment',          // ✅ matches your schema
+    'owner',
+    'status',
+    'iso_control',
+    'iso_title',
+    'nist_mappings',
+    'due_date',
+    'created_at',
+    'updated_at'
+  ];
+
+  const parser = new Parser({ fields });
+  const csv = parser.parse(risks);
+
+  res.header('Content-Type', 'text/csv');
+  res.attachment('risk_register.csv');
+  return res.send(csv);
+});
+
 
 
 

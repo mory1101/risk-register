@@ -5,6 +5,10 @@ One-line: Web-based risk register to identify, score, and track cybersecurity ri
 About
 This project is a practical risk register designed to help small/medium teams inventory assets, assess likelihood & impact, and map ISO/NIST controls to each risk. The repo is open-source and actively maintained.
 
+
+Screenshots
+./screenshots/dashboard.png
+
 Features
 
 Likelihood & impact scoring engine (configurable scales - see below)

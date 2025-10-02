@@ -29,3 +29,11 @@ a { color: #9ad0ff; }
 .badge-high { background:#40220e; }
 .badge-crit { background:#400e0e; }
 
+
+.btn {
+    padding: 10px 14px; border: 1px solid #ccc; border-radius: 8px;
+    background:#f7f7f7; cursor:pointer; font-weight:600;
+    alig
+  }
+  .btn:hover { background:#eee; }
+

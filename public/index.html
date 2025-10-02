@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-  <header><h1>Risk Register</h1></header>
+  <header><h1>Risk Register</h1> </header>
   <div style="margin:10px 0; font-size:0.9em; opacity:0.85;">
   <strong>Risk bands:</strong>
   <span class="badge badge-low">Low 1–5</span>
@@ -17,7 +17,7 @@
 
   <main>
     <section id="form">
-      <h2>Add Risk</h2>
+      <h2>Add Risk</h2> 
 <form id="riskForm">
   <div style="display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:12px;max-width:1100px;">
     <label>Asset
@@ -107,6 +107,16 @@
       </table>
     </section>
   </main>
+   <button id="downloadCsvBtn" class="btn">Download CSV</button><script>
+  document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+    // Browser will download using the filename from res.attachment(...)
+    window.location.href = '/export/csv';
+  });
+</script>
+
+
+
+
   <script src="/js/main.js"></script>
 </body>
 </html>
